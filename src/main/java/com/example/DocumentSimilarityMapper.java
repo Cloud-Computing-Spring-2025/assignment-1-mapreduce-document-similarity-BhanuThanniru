@@ -1,8 +1,6 @@
 package com.example;
-
 import java.io.IOException;
 import java.util.HashSet;
-
 import java.util.StringTokenizer;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;

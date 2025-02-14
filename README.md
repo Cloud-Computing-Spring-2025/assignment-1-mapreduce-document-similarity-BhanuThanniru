@@ -1,13 +1,10 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=18032539&assignment_repo_type=AssignmentRepo)
-### **📌 Document Similarity Using Hadoop MapReduce**  
+# **Document Similarity Using Hadoop MapReduce**
 
-# Document Similarity Using Hadoop MapReduce
-
-## Overview
+## **Overview**
 
 This project calculates the **Jaccard Similarity** between multiple documents stored in a Hadoop distributed file system (HDFS). The implementation is based on Hadoop MapReduce, with a Mapper that processes each document and a Reducer that calculates the similarity between all pairs of documents.
 
-## Approach and Implementation
+## **Approach and Implementation**
 
 ### Mapper
 
@@ -33,14 +30,6 @@ Where:
 - `|A ∩ B|` is the number of words common to both documents
 - `|A ∪ B|` is the total number of unique words in both documents
 
-# 📏 Jaccard Similarity Calculator
-
-## Overview
-
-The Jaccard Similarity is a statistic used to gauge the similarity and diversity of sample sets. It is defined as the size of the intersection divided by the size of the union of two sets.
-
-
-
 ## Example Calculation
 
 Consider two documents:
@@ -58,28 +47,19 @@ Jaccard Similarity calculation:
 
 Jaccard Similarity = 2/10 = 0.2 or 20%
 ```
-
-
 Jaccard Similarity is commonly used in:
 - Document similarity detection
 - Plagiarism checking
 - Recommendation systems
 - Clustering algorithms
 
-## Implementation Notes
-
-When computing similarity for multiple documents:
-- Compare each document pair
-- Output pairs with similarity > 50%
-
-### **📤 Expected Output**  
+### **Expected Output**  
 
 The output should show the Jaccard Similarity between document pairs in the following format:  
 ```
 (doc1, doc2) -> 60%  
 (doc2, doc3) -> 50%  
 ```
-
 ---
 
 ## Setup and Execution
@@ -157,7 +137,7 @@ hadoop fs -put ./input_files /input/dataset
 Run your MapReduce job using the following command:
 
 ```bash
-hadoop jar DocumentSimilarity-0.0.1-SNAPSHOT.jar com.example.controller.DocumentSimilarityDriver /input/dataset /output
+hadoop jar DocumentSimilarity-0.0.1-SNAPSHOT.jar com.example.controller.DocumentSimilarityDriver /input/dataset/input_files /output
 ```
 
 ### 9. **View the Output**
@@ -185,9 +165,9 @@ To copy the output from HDFS to your local machine:
     docker cp resourcemanager:/opt/hadoop-3.2.1/share/hadoop/mapreduce/output/ output/
     ``` 
 
-    ### **📥 Example Input**  
+### **Sample Input**  
 
-You will be given multiple text documents. Each document will contain several words. Your task is to compute the **Jaccard Similarity** between all pairs of documents based on the set of words they contain.  
+The following are the sample inputs and the output after jaccard similarity is performed: 
 
 #### **Example Documents**  
 
@@ -203,7 +183,20 @@ hadoop is used for big data processing
 
 ##### **doc3.txt**  
 ```
-big data is important for analysis
+big data is important for data analysis and processing
 ```
-
+##### **doc4.txt**  
+```
+hadoop and big data is used for analysis and processing
+```
+### **Sample Output**  
+(doc3.txt, doc2.txt)    -> 50%
+(doc4.txt, doc3.txt)    -> 70%
+(doc4.txt, doc2.txt)    -> 78%
 ---
+
+### **Challenges Faced**
+```
+    Challenge: Processing multiple files.
+    Solution: Hadoop allows multiple input files to be processed by specifying an input directory instead of a single file. This ensures that all files are read automatically.
+```

@@ -17,7 +17,7 @@ public class DocumentSimilarityReducer extends Reducer<Text, Text, Text, Text> {
     public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
         Set<String> wordSet = new HashSet<>();
         for (Text value : values) {
-            wordSet.addAll(Arrays.asList(value.toString().split(","))); // Split words by comma
+            wordSet.addAll(Arrays.asList(value.toString().split(",")));
         }
 
         docWordMap.put(key.toString(), wordSet);
@@ -41,12 +41,7 @@ public class DocumentSimilarityReducer extends Reducer<Text, Text, Text, Text> {
             if (similarityPercent >= 50) {
                 String doc1 = existingDoc;
                 String doc2 = key.toString();
-
-                if (doc1.compareTo(doc2) < 0) {
-                    context.write(new Text("(" + doc1 + ", " + doc2 + ")"), new Text("-> " + similarityPercent + "%"));
-                } else {
-                    context.write(new Text("(" + doc2 + ", " + doc1 + ")"), new Text("-> " + similarityPercent + "%"));
-                }
+                context.write(new Text("(" + doc2 + ", " + doc1 + ")"), new Text("-> " + similarityPercent + "%"));
             }
         }
     }
